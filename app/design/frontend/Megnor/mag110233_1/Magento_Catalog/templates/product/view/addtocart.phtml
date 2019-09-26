@@ -1,0 +1,191 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php $_product = $block->getProduct(); ?>
+<?php $hidePrice = $_product->getResource()->getAttribute('hide_price')->getFrontend()->getValue($_product);
+if($hidePrice == 'No'): ?>
+<?php $buttonTitle = __('Add to Cart'); ?>
+<?php if ($_product->isSaleable()): ?>
+<div class="box-tocart">
+    <div class="fieldset">
+        <?php if ($block->shouldRenderQuantity()): ?>
+        <div class="field qty">
+            <label class="label" for="qty"><span><?= /* @escapeNotVerified */ __('Qty') ?></span></label>
+            <div class="control">
+                <input type="number"
+                       name="qty"
+                       id="qty"
+                       value="<?= /* @escapeNotVerified */ $block->getProductDefaultQty() * 1 ?>"
+                       title="<?= /* @escapeNotVerified */ __('Qty') ?>"
+                       class="input-text qty"
+                       data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+                       />
+            </div>
+        </div>
+        <?php endif; ?>
+        <div class="actions">
+            <button type="submit"
+                    title="<?= /* @escapeNotVerified */ $buttonTitle ?>"
+                    class="action primary tocart"
+                    id="product-addtocart-button">
+                <span><?= /* @escapeNotVerified */ $buttonTitle ?></span>
+            </button>
+            <?= $block->getChildHtml('', true) ?>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {}
+        }
+    }
+</script>
+<?php else: ?>
+<div class="callforprice">
+<button class="call-for-price" id="call-for-price">Call for Price</button>
+</div>
+<style type="text/css">
+.callforprice {
+    position: relative;
+    top: -2em;
+}
+button.action-close {
+    background: transparent !important;
+}
+.callforpricemodal .modal-inner-wrap {
+    width: 40%;
+}
+.callforpricemodal .modal-content {
+    border: 0;
+    width: 87%;
+}
+</style>
+<div id="popup-modal" style="display:none;">
+    <p>Jot us a note and we'll get back to you as quickly as possible.</p>
+    <form class="callforprice-form form" id="callforprice-form" action="<?php echo $block->getBaseUrl().'callforprice/post/index'?>" method="POST" data-hasrequired="* Required Fields">
+      <fieldset class="fieldset">
+        <input type="hidden" name="productid" id="productid" value="<?php echo $_product->getId() ?>">
+        <div class="forname required">
+          <label for="name"><strong>Name</strong></label>
+          <input type="text" name="callname" id="callname" required/>
+        </div><br/>
+        <div class="forname required">
+          <label for="email"><strong>Email</strong></label>
+          <input type="email" name="callemail" id="callemail"required />
+        </div><br/>
+        <div class="forname required">
+          <label for="mobile_number"><strong>Mobile Number</strong></label>
+          <input type="number" pattern="\d{3}[\-]\d{3}[\-]\d{4}" maxlength="10" minlength="8" name="mobile_number" id="mobile_number" onKeyPress="if(this.value.length >9) return false;" required />
+        </div><br/>
+        <div class="forname required">
+          <label for="note"><strong>Note</strong></label>
+          <textarea name="note" id="note" required></textarea>
+        </div>
+      </fieldset>
+    </form>
+</div>
+<script>
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ],
+        function(
+            $,
+            modal
+        ) {
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: 'Get a quote',
+                modalClass: 'callforpricemodal',
+                buttons: [{
+                    text: $.mage.__('Submit'),
+                    class: 'callforpricesubmit',
+                    click: function () {
+                        var name = jQuery("#callname").val();
+                        var email = jQuery("#callemail").val();
+                        var mobile_number = jQuery("#mobile_number").val();
+                        var note = jQuery("#note").val();
+                        var productid = jQuery("#productid").val();
+                        // var filter = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+                        if(name == '' || email == '' || mobile_number == '' || note == '')
+                        {
+                            if(name == '')
+                            {
+                              jQuery('#callname').focus();
+                              jQuery('#callname').css('border', '1px solid #ff0000');
+                            }
+                            if(email == '')
+                            {
+                              jQuery('#callemail').focus();
+                              jQuery('#callemail').css('border', '1px solid #ff0000');
+                            }
+                            if(mobile_number == '')
+                            {
+                              jQuery('#mobile_number').focus();
+                              jQuery('#mobile_number').css('border', '1px solid #ff0000');
+                            }
+                            if(note == '')
+                            {
+                              jQuery('textarea').focus();
+                              jQuery('textarea').css('border', '1px solid #ff0000');
+                            }
+                        }else{
+                          var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                          if (regex.test(email))
+                          {
+                              jQuery.ajax({
+                                  url: "<?php  echo $block->getBaseUrl() . 'callforprice/post/index';?>",
+                                  type: 'POST',
+                                  showLoader: true,
+                                  data : {name:name, email:email, mobile_number:mobile_number, note:note, product_id:productid},
+                                  success: function(data){
+                                      window.scrollTo(0, 0)
+                                  },
+                                  error: function(result){
+                                      console.log('no response !');
+                                  }
+                              });
+                              this.closeModal();                           
+                          }else{
+                            jQuery('#callemail').focus();
+                            jQuery('#callemail').css('border', '1px solid #ff0000');
+                          }
+                              
+                        }
+                    }
+                }]
+            };
+
+            var popup = modal(options, $('#popup-modal'));
+            $("#call-for-price").on('click',function(){ 
+                event.preventDefault();
+                $("#popup-modal").modal("openModal");
+            });
+        }
+    );
+    require(['jquery'], function($){
+      $('input').click(function() {
+        $(this).css('border', '1px solid #ebebeb');
+      });
+      $('textarea').click(function() {
+        $(this).css('border', '1px solid #ebebeb');
+      });
+    });
+    function isEmail(email) {
+      
+      return regex.test(email);
+    }
+</script>
+<?php endif; ?>

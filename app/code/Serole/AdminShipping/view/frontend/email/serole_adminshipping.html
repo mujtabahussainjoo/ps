@@ -1,0 +1,49 @@
+<!--@subject New Order (#{{var orderid}})  @-->
+<!--@vars {
+"var this.getUrl($store, 'frontend')":"Warehouse Account URL",
+"var customer.email":"Customer Email",
+"var customer.name":"Customer Name"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+<table>
+    <tr class="email-intro">
+        <td>
+            <p style="font-size: 1.1em;">{{trans "Hi Team,"}}</p>
+        </td>
+    </tr>
+    <tr class="email-summary">
+        <tr>
+            <td style="font-size: 1.1em;">{{trans "Please ship the following:"}}</td>
+        </tr>
+    </tr>
+    <tr class="email-information">
+        <h3><strong>{{trans "Product Information:"}}</strong></h3>
+        <table border="1" cellspacing="10" cellpadding="8" >
+            <tr>
+                <th>{{trans "Qty"}}</th>
+                <th>{{trans "Name"}}</th>
+                <th>{{trans "SKU"}}</th>
+            </tr>
+            <tr>
+                {{var productData |raw}}
+            </tr>
+        </table>
+    </tr>
+    <tr class="email-information">
+        <h3><strong>{{trans "Shipping Information"}}</strong></h3>
+        {{var shippingDetail | raw}}
+    </tr>
+    <tr>
+        <td><h4 style="display: inline-block;">{{trans "Comments: "}}</h4> {{var comments |raw}}</td>
+    </tr>
+    <br/>
+    <tr>
+        <td>{{var signature |raw}}</td>
+    </tr>
+    <tr>
+        <td>{{trans "OnlyPos Sales"}}</td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

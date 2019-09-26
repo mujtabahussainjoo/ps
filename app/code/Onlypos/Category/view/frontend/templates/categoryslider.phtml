@@ -1,0 +1,237 @@
+<div class="category-cms">
+    <div id="categories" class="categories-cms">
+        <div class="category_title_block">
+            <div class="normal-title">
+                <h3 class="dark-title">Top category</h3>
+                <h3 class="light-title">of week</h3>
+            </div>
+            <div class="view_button"><a href="allcategorylist">view all category</a></div>
+        </div>
+        <div class="category_content_block">
+            <div class="homepage-category-inner">
+                <div class="category_inner">
+                    <div class="homepage-categories-inner products block_content">
+                        <div id="category-carousel" class="products product-carousel">
+                            <?php
+                                    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                                    $storeObj = $objectManager->create('\Magento\Store\Model\StoreManagerInterface');
+                                    $baseUrl = $storeObj->getStore()->getBaseUrl();
+                                    $mediaUrl = $storeObj->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+                                    $outputhelper    = $this->helper('Magento\Catalog\Helper\Output');
+                                    $categoryCollection = $objectManager->get('\Magento\Catalog\Model\ResourceModel\Category\CollectionFactory');
+                                    $categories = $categoryCollection->create();
+                                    $categories->addAttributeToSelect('*');
+                                    $categories->addAttributeToFilter('topcategory',['eq'=>1]);
+                            foreach ($categories as $category) {
+                                if ($category->getId() != 1 && $category->getId() != 2) {
+                                    $url = $baseUrl.$category->getUrlKey();
+                                    $imageUrl = $mediaUrl.'catalog/category/'.$category->getImage();
+                                    ?>
+                                    <div class="slider-item">
+                                        <div class="category-block">
+                                            <div class="cat-img-block">
+                                                <div class="cat-img"><a href="<?php echo $url?>"><img src="<?php echo $imageUrl ?>" alt=""></a></div>
+                                            </div>
+                                            <div class="cat-dec-block">
+                                                <div class="title cat-onlytitle"><br/>
+                                                    <div class="title"><a class="cat_name" href="<?php echo $url?>"><?php echo $category->getName()?></a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                               <?php
+                                }
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php 
+
+	$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+	$storeObj = $objectManager->create('\Magento\Store\Model\StoreManagerInterface');
+	$baseUrl = $storeObj->getStore()->getBaseUrl();
+	$mediaUrl = $storeObj->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+	$outputhelper    = $this->helper('Magento\Catalog\Helper\Output');
+	$imageHelper  = $objectManager->get('\Magento\Catalog\Helper\Image');
+	$categoryCollection = $objectManager->get('\Magento\Catalog\Model\CategoryFactory');
+	$categories = $categoryCollection->create();
+	$categories->load(265);
+	$productCollectionFactory=$objectManager->get('\Magento\Catalog\Model\ResourceModel\Product\CollectionFactory');
+	$collection = $productCollectionFactory->create();
+	$collection->addAttributeToSelect('*');
+    $collection->addCategoryFilter($categories);
+    $collection->addAttributeToFilter('visibility', \Magento\Catalog\Model\Product\Visibility::VISIBILITY_BOTH);
+    $collection->addAttributeToFilter('status',\Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED);
+	// $collection = $categories->getCollection()
+	// ->addAttributeToSelect('*')
+	// ->setOrder('position',\Magento\Framework\DB\Select::SQL_ASC)
+	// ->addIsActiveFilter()
+	// //->addOrderField('name')
+	// ->addIdFilter($categories->getChildren());
+	
+
+
+
+?>
+<?php /*?>
+
+<div class="category-cms">
+    <div id="categories" class="categories-cms">
+        <div class="category_title_block">
+            <div class="normal-title">
+                <h3 class="dark-title"><?php echo $categories->getName()?></h3>
+                <!--h3 class="light-title">of week</h3-->
+            </div>
+            <!--div class="view_button"><a href="allcategorylist">view all category</a></div-->
+        </div>
+        <div class="category_content_block">
+            <div class="homepage-category-inner">
+                <div class="category_inner">
+                    <div class="homepage-categories-inner products block_content">
+                        <div id="category-carousel" class="products product-carousel">
+                            <?php
+                            foreach ($collection as $category) {
+                                if ($category->getId() != 1 && $category->getId() != 2) {
+                                    $url = $baseUrl.$category->getUrlKey();
+                                    $imageUrl = $mediaUrl.'catalog/category/'.$category->getImage();
+                                    ?>
+                                    <div class="slider-item">
+                                        <div class="category-block">
+                                            <div class="cat-img-block">
+                                                <div class="cat-img"><a href="<?php echo $url?>"><img src="<?php echo $imageUrl ?>" alt=""></a></div>
+                                            </div>
+                                            <div class="cat-dec-block">
+                                                <div class="title cat-onlytitle"><br/>
+                                                    <div class="title"><a class="cat_name" href="<?php echo $url?>"><?php echo $category->getName()?></a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                               <?php
+                                }
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php */?>
+
+
+<div class="category-square-container">
+	<div class="category-square"><?php echo $categories->getName()?></div>
+</div>
+
+<div id="owl-demo-prod" class="owl-carousel owl-theme">
+ <?php 
+	 foreach ($collection as $product) {
+	$url = $baseUrl.$product->getUrlKey();
+	$imageUrl = $imageHelper->init($product, 'product_base_image')->setImageFile($product->getFile())->resize(380)->getUrl();
+	//$imageUrl =  $mediaUrl. 'catalog/product' . $category->getImage();
+ ?>         
+  <div class="item">
+	<a class="category_name" href="<?php echo $url?>">
+		<img src="<?php echo $imageUrl ?>" alt="Owl Image">
+		<div class="title">
+		
+		<?php $product_name=$product->getName();?>
+		<?php
+			$pro_name_len=strlen($product_name);
+			if($pro_name_len >= 20){
+			   echo  substr($product_name,0,20)."...";
+			} else {
+				echo $product_name; 
+			}
+		?>
+		
+		
+		</div>
+		<div class="price-box price-final_price" data-role="priceBox" data-product-id="9742" data-price-box="product-id-9742" style="text-align: center;color:#333;">
+			<span class="price-container price-final_price tax weee">
+					<span id="old-price-9742-widget-product-grid" data-price-amount="387.48" data-price-type="finalPrice" class="price-wrapper ">
+						<span class="price"style="color:#333;">
+									<?php 
+										$priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data'); 
+										echo $priceHelper->currency($product->getFinalPrice(), true, false); 
+									?>
+						</span>
+					</span>
+			</span>
+		</div>
+	</a>
+  </div>
+	
+<?php
+}
+?>
+</div>
+
+
+
+
+
+
+<style>
+.category-square-container {
+	display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background: #1BA2E8;
+    margin: 0 0 0 0px;
+}
+
+.category-square {
+    height: 100%;
+    margin: 3% 0 3% 0;
+    font-size: 40px;
+    font-weight: 200;
+    font-family: inherit;
+    color: #fff;
+	font-family: montserrat;
+}
+.title{ 
+	color:#666;
+    text-align: center;
+    font-size: 14px;
+    font-family: inherit;
+    margin: 2% 0 0 0px;
+    text-transform: uppercase;
+}
+#owl-demo-prod .item{
+  margin: 3px;
+}
+#owl-demo-prod .item img{
+  display: block;
+  width: 60%;
+  height: auto;
+}
+</style>
+
+ <script type="text/javascript">
+require([ 'jquery', 'jquery/ui', 'owlcarousel'], function($){ 
+	//$(document).ready(function() {
+	    $("#owl-demo-prod").owlCarousel({
+		  autoPlay: 1000, 
+		  itemsDesktop : [1199,3],
+		  itemsDesktopSmall : [979,3],
+		  navigation : true,
+		  nav: true,
+		  loop: true,
+		  autoplay:true,
+		  items: 5,
+		  autoplaySpeed:1000	  
+		});
+	//}); 
+});
+</script>

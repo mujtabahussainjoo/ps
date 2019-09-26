@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+	    <referenceBlock name="head.additional">
+            <block cacheable="false" class="Megnor\ShopByBrand\Block\View" name="brand.extratags" template="Megnor_ShopByBrand::megnor_brand/extratags.phtml"/>
+        </referenceBlock>
+        <attribute name="class" value="megnor_brand_view"/>
+        <!--<referenceContainer name="content">
+            <block class="Megnor\ShopByBrand\Block\View" name="brand.view"  template="Megnor_ShopByBrand::megnor_brand/view.phtml" cacheable="false">
+			 </block>
+			<!--  <block class="Magento\Catalog\Block\Product\ListProductnew" name="brand.view.new"  template="Magento_Catalog::product/list.phtml" cacheable="false">
+			 </block> -->
+			 <!-- <block class="Megnor\ShopByBrand\Block\List" name="brand_list" as="brandlist" template="Megnor_ShopByBrand::megnor_brand/list.phtml"/> -->
+        <!--</referenceContainer>-->
+		<attribute name="class" value="page-products"/>
+        <referenceContainer name="content">
+            <!--<block class="Webkul\LayeredNavigation\Block\Product\ListProduct" name="layerednavigation_index_index" as="product_list" template="Magento_Catalog::product/list.phtml">-->
+			<block class="Megnor\ShopByBrand\Block\View" name="brand.view"  template="Megnor_ShopByBrand::megnor_brand/view.phtml" cacheable="false">
+                <container name="category.product.list.additional" as="additional" />
+                <block class="Magento\Framework\View\Element\RendererList" name="category.product.type.details.renderers" as="details.renderers">
+                    <block class="Magento\Framework\View\Element\Template" name="category.product.type.details.renderers.default" as="default"/>
+                </block>
+                <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="category.product.addto" as="addto">
+                    <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare"
+                        name="category.product.addto.compare" as="compare"
+                        template="Magento_Catalog::product/list/addto/compare.phtml"/>
+                </block>
+                <block class="Magento\Catalog\Block\Product\ProductList\Toolbar" name="product_list_toolbar" template="Magento_Catalog::product/list/toolbar.phtml">
+                    <block class="Magento\Theme\Block\Html\Pager" name="product_list_toolbar_pager"/>
+                </block>
+                <action method="setToolbarBlockName">
+                    <argument name="name" xsi:type="string">product_list_toolbar</argument>
+                </action>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="sidebar.main">
+            <block class="Megnor\ShopByBrand\Block\Navigation" name="catalog.leftnav" as="navigation" before="-" template="Magento_LayeredNavigation::layer/view.phtml">
+                <block class="Megnor\ShopByBrand\Block\Navigation\State" name="catalog.navigation.state" as="state" template="Magento_LayeredNavigation::layer/state.phtml" />
+                <block class="Magento\LayeredNavigation\Block\Navigation\FilterRenderer" name="catalog.navigation.renderer" as="renderer" template="Magento_LayeredNavigation::layer/filter.phtml"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

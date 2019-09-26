@@ -1,0 +1,48 @@
+<!--@subject A Customer sent you a Price Quote  @-->
+<!--@vars {
+"var this.getUrl($store, 'frontend')":"Warehouse Account URL",
+"var customer.email":"Customer Email",
+"var customer.name":"Customer Name"
+} @-->
+
+{{template config_path="design/email/header_template"}} <!-- pathe of template header-->
+
+<!-- here $myvar1 , $myvar2, $myvar3, $myvar4, $myvar5, $myvar6 are variables in which we
+                                     asssign values when we use this template for send mail-->
+
+<!-- you can Modify content of template according to your requirement-->
+<table>
+    <tr class="email-intro">
+        <td>
+            <h2>{{trans "Quote:"}}</h2>
+        </td>
+    </tr>
+    <tr class="email-summary">
+        <tr>
+            <td><strong>{{trans "Name"}}</strong></td>
+            <td>{{var name}}</td>
+        </tr>
+        <tr>
+            <td><strong>{{trans "Email"}}</strong></td>
+            <td>{{var email}}</td>
+        </tr>
+        <tr>
+            <td><strong>{{trans "Mobile Number"}}</strong></td>
+            <td>{{var mobile_number}}</td>
+        </tr>
+        <tr>
+            <td><strong>{{trans "Note"}}</strong></td>
+            <td>{{var note}}</td>
+        </tr>
+    </tr>
+    <tr class="email-information">
+        <h3>{{trans "Product requested:"}}</h3>
+        <div>
+            {{var product_image | raw}}
+            <br/>
+            {{var product_name | raw}}
+        </div>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

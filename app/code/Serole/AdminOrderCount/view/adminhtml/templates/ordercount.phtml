@@ -1,0 +1,58 @@
+<section class="dashboard-advanced-reports" data-index="dashboard-advanced-reports" style="border-bottom:0; margin:0;">
+    <div class="dashboard-advanced-reports-description">
+        <header class="dashboard-advanced-reports-title">
+        	Orders
+        </header>
+        <?php
+		    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+		    $orderCollection = $objectManager->get('\Magento\Sales\Model\ResourceModel\Order\Collection');
+		    $complete = $canceled = $closed = $holded = $pending = $processing = 0;
+		    foreach ($orderCollection as $orderData) {
+		    	if($orderData->getStatus() == 'complete')
+		    	{
+		    		$complete = $complete + 1;
+		    	}
+		    	if($orderData->getStatus() == 'canceled')
+		    	{
+		    		$canceled = $canceled + 1;
+		    	}
+		    	if($orderData->getStatus() == 'closed')
+		    	{
+		    		$closed = $closed + 1;
+		    	}
+		    	if($orderData->getStatus() == 'holded')
+		    	{
+		    		$holded = $holded + 1;
+		    	}
+		    	if($orderData->getStatus() == 'pending')
+		    	{
+		    		$pending = $pending + 1;
+		    	}
+		    	if($orderData->getStatus() == 'processing')
+		    	{
+		    		$processing = $processing + 1;
+		    	}
+		    }
+		?>
+        <div class="dashboard-advanced-reports-content">
+        	<div class="dashboard-item dashboard-item orderscustomtes" style="background-color: #ff0000;">
+        		Order Pending - <strong><?php echo $pending ?></strong>
+		    </div>
+		    <div class="dashboard-item dashboard-item orderscustomtes" style="background-color: #ffa500;">
+		    	Order Processing - <strong><?php echo $processing ?></strong>
+		    </div>
+		    <div class="dashboard-item dashboard-item orderscustomtes" style="background-color: #0000ff;">
+		    	Order Complete - <strong><?php echo $complete ?></strong>
+		    </div>
+		    <div class="dashboard-item dashboard-item orderscustomtes" style="background-color: #08af08;">
+		    	Order Hold - <strong><?php echo $holded ?></strong>
+		    </div>
+		    <div class="dashboard-item dashboard-item orderscustomtes" style="background-color: #d0d000;">
+		    	Order Closed - <strong><?php echo $closed ?></strong>
+		    </div>
+		    <div class="dashboard-item dashboard-item orderscustomtes" style="background-color: #fd6681;">
+		    	Order Canceled - <strong><?php echo $canceled ?></strong>
+		    </div>
+        </div>
+    </div>
+</section>

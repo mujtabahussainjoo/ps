@@ -1,0 +1,32 @@
+<div class="tm_testimonial_cms">
+    <div class="container-width">
+        <div class="testimonial-inner">
+            <div class="section-header quotes">
+                <div class="static-inner">
+                    <div class="title">What Our client says</div>
+                </div>
+            </div>
+            <?php $mediaUrl = $this->getUrl('pub/media') ?>
+            <div id="testimonial-blog" class="product-carousel owl-carousel">
+                <?php foreach ($block->getTestimonials() as $testimonial) :?>
+                    <?php //echo "<pre>"; print_r($testimonial->getData()); ?>
+                    <div class="peoplesay-block">
+                        <div class="testimonial-left">
+                            <div class="image-blog"><img src="<?php echo $mediaUrl.$testimonial->getImage()?>" style="height: 192px" alt=""></div>
+                        </div>
+                        <div class="testimonial-right">
+                            <div class="quotes-icon">&nbsp;</div>
+                            <div class="testimonial-content">
+                                <div class="test_desc">
+                                    <p><?php echo $testimonial->getContent();?></p>
+                                </div>
+                                <div class="test_name"><?php echo $testimonial->getName();?></div>
+                                <div class="test_desig"><?php echo $testimonial->getTitle(); ?></div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+</div>

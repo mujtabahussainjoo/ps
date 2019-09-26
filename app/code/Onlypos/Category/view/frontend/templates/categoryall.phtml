@@ -1,0 +1,51 @@
+
+<div class="container">
+	<div id="requestquote" class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12" style="float:left;">
+
+<?php
+function categoryLoop($id){
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $categories = $objectManager->create('Magento\Catalog\Model\Category')->load($id);
+
+    if($categories->hasChildren()){
+    echo "<div class='products  wrapper grid products-grid'>";
+    ?>
+         <ol class="list items product-items">
+         
+        <?php
+        $subcategories = explode(',', $categories->getChildren());
+        foreach ($subcategories as $category) {
+            $subcategory = $objectManager->create('Magento\Catalog\Model\Category')->load($category);
+            $countChild = $subcategory->getChildrenCount();
+            $url = $subcategory ->getUrl();
+            if($countChild > 0){
+            echo  '<li class="item product product-item" style="font-weight:bold;display:block"><br/>' ;
+            }else{
+            ?>
+             <li class="item product product-item" >
+            <?php
+            }
+            ?>
+            <div class='products  wrapper grid products-grid'>
+            <a href="<?php echo $url; ?>">
+           </div>
+            <?php
+            echo $subcategory->getName();
+            echo "</a></li>";
+            //echo "<br>";
+            if($subcategory->hasChildren()){ categoryLoop($category); }
+        }
+    echo "</ol></div>";
+    }
+}
+categoryLoop(2);  // enter your category id here
+?>
+</div>
+</div>
+</div>
+<style>
+.cms-allcategorylist .page-products .products-grid .product-item:nth-child(3n + 1), .page-layout-1column .products-grid .product-item:nth-child(3n + 1), .page-layout-3columns .products-grid .product-item:nth-child(3n + 1), .page-products.page-layout-1column .products-grid .product-item:nth-child(3n + 1), .page-products.page-layout-3columns .products-grid .product-item:nth-child(3n + 1) {
+    margin-left:24px !important;
+}
+</style>

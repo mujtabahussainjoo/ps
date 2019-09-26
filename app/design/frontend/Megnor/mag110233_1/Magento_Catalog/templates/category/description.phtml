@@ -1,0 +1,24 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Category view template
+ *
+ * @var $block \Magento\Catalog\Block\Category\View
+ */
+?>
+<?php if ($_description = $block->getCurrentCategory()->getCatShortdesc()): ?>
+    <div class="category-description">
+        <h1><?php echo $block->getCurrentCategory()->getName();?></h1>
+        <?php $shortDesc = $this->helper('Magento\Catalog\Helper\Output')->categoryAttribute($block->getCurrentCategory(), $_description, 'cat_shortdesc'); 
+        	echo htmlspecialchars_decode($shortDesc, ENT_HTML5);
+        ?>
+    </div>
+<?php endif; ?>

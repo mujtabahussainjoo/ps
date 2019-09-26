@@ -1,0 +1,18 @@
+<?php 
+$brand = $this->getBrand();
+$media = $this->getImageMediaPath();
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$data = $this->helper('Megnor\Framework\Helper\Data');
+?>
+<div class="page-title-wrapper">
+	<h1 class="page-title">
+		<span><?php echo $brand->getName();?></span>
+	</h1>
+</div>
+
+<div class="brand-image">
+		<img class="barnd-img" src="<?php echo $media.$brand->getLogo() ?>" title="<?php echo $brand->getName();?>" alt="<?php echo $brand->getName();?>" />
+</div>
+<div class="category-description">
+     <?php echo $brand->getDescription();?>    
+</div>

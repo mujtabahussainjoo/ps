@@ -1,0 +1,21 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Product description template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View\Description
+ */
+?>
+<!--?php /* @escapeNotVerified */ echo $this->helper('Magento\Catalog\Helper\Output')->productAttribute($block->getProduct(), $block->getProduct()->getDescription(), 'description') ?-->
+<?php //echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('Custom Tab')->toHtml(); ?>
+
+<h4>Our Delivery Time is 1-2 Days* Normally!</h4>
+
+<p>Products are shipped via well-known carriers of Australia viz., Star Track, Couriers Please, Toll Ipec etc. *Delivery depends on the location and may take longer if customers are located in the rural/remote area. Our couriers provide speedy shipping across Australia which includes Tasmania & Norfolk Island which could take an additional day.
+    <a href="deliveryinformation"> Read More </a>  about Delivery.</p>

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Serole_ProductGrid::parent" title="ProductGrid" module="Serole_ProductGrid" sortOrder="100" resource="Serole_ProductGrid::parent"/>
+        <add id="Serole_ProductGrid::index" title="ProductGrid Index" module="Serole_ProductGrid" sortOrder="10" action="productgrid/index" resource="Serole_ProductGrid::index" parent="Serole_ProductGrid::parent"/>
+		
+    </menu>
+</config>

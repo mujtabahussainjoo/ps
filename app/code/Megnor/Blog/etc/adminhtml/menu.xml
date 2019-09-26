@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Ihor Vansach (ihor@megnor.com). All rights reserved.
+ * See LICENSE.txt for license details (http://opensource.org/licenses/osl-3.0.php).
+ *
+ * Glory to Ukraine! Glory to the heroes!
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Megnor_Blog::elements" title="Blog" module="Megnor_Blog" parent="Magento_Backend::content" sortOrder="10"  resource="Megnor_Blog::elements"/>
+
+        <add id="Megnor_Blog::post" title="Posts" module="Megnor_Blog" parent="Megnor_Blog::elements" sortOrder="10" action="blog/post/" resource="Megnor_Blog::post"/>
+
+        <add id="Megnor_Blog::category" title="Categories" module="Megnor_Blog" parent="Megnor_Blog::elements" sortOrder="20" action="blog/category/" resource="Megnor_Blog::category"/>
+
+        <add id="Megnor_Blog::import" title="Import" module="Megnor_Blog" parent="Megnor_Blog::elements" sortOrder="30" action="blog/import/" resource="Megnor_Blog::import"/>
+
+        <add id="Megnor_Blog::config_blog" title="Configuration" module="Megnor_Blog" parent="Megnor_Blog::elements" sortOrder="40" action="adminhtml/system_config/edit/section/mfblog/" resource="Megnor_Blog::config_blog"/>
+    </menu>
+</config>

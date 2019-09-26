@@ -1,0 +1,33 @@
+<?php
+ /*
+ * @var $block \Credevlabz\Testimonials\Block\TestimonialsList 
+ * @package Credevlabz/Testimonials
+ * @author Aman Srivastava <http://amansrivastava.in>
+ */ 
+?>
+<div class='testimonials-list'>
+<div class='page-title'>
+<h1><?php echo __('WHAT OUR CUSTOMERS SAY') ?></h1>
+</div>
+<div class="row testimonials">
+<?php /** @var $testimonial \Credevlabz\Testimonials\Model\Testimonial */ ?>
+<?php foreach ($block->getTestimonials() as $testimonial): ?>
+
+
+    <div class="testimonial">
+       <div class="rating-box"><div class="rating" style="width: 100%;"></div></div><div class="testimoni_title">
+		<?php echo $testimonial->getTitle(); ?>																	
+        </div>
+        <div class="message">
+            <?php echo $testimonial->getContent(); ?>
+        </div>
+        <div class="author-info">
+            <strong><?php echo __('Posted By:') ?></strong> <?php echo $testimonial->getName() ?>
+        </div>
+    </div>
+<?php endforeach; ?>
+<?php if ($block->getPagerHtml()): ?>
+        <div class="testimonials-toolbar toolbar bottom"><?php // echo $block->getPagerHtml(); ?></div>
+    <?php endif ?>
+</div>
+</div>

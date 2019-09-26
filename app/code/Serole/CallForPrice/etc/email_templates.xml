@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="serole_callforprice_notify" label="Call For Price Notify" file="callforprice_notify.html" type="html" module="Serole_CallForPrice" area="frontend"/>
+</config>

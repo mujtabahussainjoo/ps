@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+    	<add id="Serole_CallForPrice::serole" title="Serole" module="Serole_CallForPrice" sortOrder="51" resource="Serole_CallForPrice::serole"/>
+        <add id="Serole_CallForPrice::callforprice" title="Call for Price" module="Serole_CallForPrice" sortOrder="10" action="callforprice/post" resource="Serole_CallForPrice::callforprice" parent="Serole_CallForPrice::serole"/>
+        
+    </menu>
+</config>

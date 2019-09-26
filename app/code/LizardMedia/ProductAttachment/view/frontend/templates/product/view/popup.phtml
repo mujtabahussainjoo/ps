@@ -1,0 +1,243 @@
+<?php
+$product = $block->getProduct();
+$productUrl = $block->getImageUrl();
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+$productImageUrl = $storeManager->getStore()->getBaseUrl()."pub/media/catalog/product".$productUrl
+?>
+<button id="myBtn">Open Modal</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+   <!-- Modal content -->
+   <div class="modal-content anyClassModal">
+      <span class="close">&times;</span>
+      <h3 class="headingBottom">Price Match</h3>
+      <div>
+         <div class="price-popContent ">
+            <div class="price-popProduct row">
+               <div class="sub-popProduct col-md-3">
+                  <img class="modalImg" src="<?php echo $productImageUrl?>" alt="Gryphon I GD4430 2D Scanner w USB Cbl Black Barcode scanner " title="Gryphon I GD4430 2D Scanner w USB Cbl Black Barcode scanner ">
+                  <p class="price"></p>
+                  <div class="price-box" style="font-size:14px;">
+                     <span class="price-excluding-tax">
+                     <span class="label">Excl. Tax:</span>
+                     <span class="price" id="price-excluding-tax-230"><?php echo $block->getPriceWithTax()?></span>
+                     </span>
+                     <span class="price-including-tax">
+                     <span class="label">Incl. Tax:</span>
+                     <span class="price" id="price-including-tax-230"><?php echo $block->getPriceWithoutTax()?></span>
+                     </span>
+                  </div>
+                  <p></p>
+               </div>
+               <dl class="price-popTxtInfo col-md-9">
+                  <dt>Is this product being sold elsewhere for a lower price?</dt>
+                  <dd>Please fill in the short form below and we will try to work with our suppliers to
+                     match their price or provide an even better deal.
+                  </dd>
+                  <dt>Price match requests are handled by professional sourcing staffs. </dt>
+                  <dd>If the reported product is identical to the OnlyPOS product, and lower priced sources
+                     are found, prices on product pages will be updated within 48 hours (Mon-Fri) after
+                     price match is received. <a href="<?php echo $storeManager->getStore()->getBaseUrl()."price-match"?>" style="color: #c00;"><span>Terms &amp; Conditions</span></a>
+                  </dd>
+               </dl>
+            </div>
+            <div id="priceMatchForm">
+               <div class="price-popMainForm">
+
+                  <fieldset class="fieldset create info">
+                     <input type="hidden" name="success_url" value="">
+                     <input type="hidden" name="error_url" value="">
+                     <div class="field field-name-firstname required">
+                        <label class="label" for="firstname"><span>SKU</span></label>
+                        <div class="control">
+                           <strong><?php echo $product->getSku()?></strong>
+                           <input name="prodname" value="Gryphon I GD4430 2D Scanner w USB Cbl Black Barcode scanner " type="hidden">
+                           <input name="sku" value="DLGD4430B-U" type="hidden">
+                           <input name="our_produrl" value="https://www.onlypos.com.au/gryphon-ibarcode-scanner-gd4430-2d" type="hidden">
+                        </div>
+                     </div>
+                     <div class="field field-name-lastname required">
+                        <label class="label" for="lastname"><span>Your Name:</span></label>
+                        <div class="control">
+                           <input type="text" id="name" name="name" value="" title="your Name" class="input-text required-entry" data-validate="{required:true}" autocomplete="off" aria-required="true">
+                        </div>
+                         <p class="product-form-name" style="display: none;color: red">Please enter your name </p>
+                     </div>
+                     <div class="field field-name-lastname required">
+                        <label class="label" for="lastname"><span>Your E-mail Address:</span></label>
+                        <div class="control">
+                           <input type="email" id="email" name="email" value="" title="your email" class="input-text required-entry" data-validate="{required:true}" autocomplete="off" aria-required="true">
+                           <span>Unless you are already on our newsletters list, we will not send any e-mail to you that are not related to this review.</span>
+                        </div>
+                         <p class="product-form-email" style="display: none;color: red">Please enter your Email </p>
+                     </div>
+                     <div class="field field-name-lastname required">
+                        <label class="label" for="lastname"><span>URL where sold for less:</span></label>
+                        <div class="control">
+                           <input type="text" id="url" name="url" value="" title="URL where sold for less" class="input-text required-entry" data-validate="{required:true}" autocomplete="off" aria-required="true">
+                        </div>
+                         <p class="product-form-url" style="display: none;color: red">Please provide the details </p>
+                     </div>
+                     <div class="field field-name-lastname required">
+                        <label class="label" for="lastname"><span>Notes / Details:</span></label>
+                        <div class="control">
+                           <textarea class="input-text" id="details" maxlength="250" name="details" required=""></textarea>
+                           <span>(price, bundle, special offer, gifts, etc)</span>
+                        </div>
+                         <p class="product-form-details" style="display: none;color: red">Please provide the details</p>
+                     </div>
+					  <div class="actions-toolbar">
+                     <div class="primary">
+                        <button id="price_submit" class="action submit primary product-form-submit" type="button">Submit</button>
+                     </div>
+                     <div class="secondary">
+                        <button class="button cancel " id="cancel" type="button">Cancel</button>
+                     </div>
+                  </div>
+                      <div class="status"></div>
+                  </fieldset>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+<script>
+    require(['jquery', 'jquery/ui'], function($){
+        var baseurl = '<?php echo $storeManager->getStore()->getBaseUrl()?>';
+        var url  = baseurl + 'downloadable/requestquote/ajax';
+        jQuery('.product-form-submit').click(function () {
+            var status = 1;
+
+            var name = jQuery('#name').val();
+            if(name == ''){
+                status = 0;
+                jQuery('.product-form-name').css('display','block')
+            }
+
+            var email = jQuery('#email').val();
+            if(email == ''){
+                status = 0;
+                jQuery('.product-form-email').css('display','block')
+            }
+
+            var url = jQuery('#url').val();
+            if(url == ''){
+                status = 0;
+                jQuery('.product-form-url').css('display','block')
+            }
+
+            var details = jQuery('#details').val();
+            if(details == ''){
+                status = 0;
+                jQuery('.product-form-details').css('display','block')
+            }
+
+            if(status == 1){
+                $.ajax({
+                    //showLoader: true,
+                    url: url,
+                    data: param,
+                    type: "POST",
+                    dataType: 'json'
+                    data :{name:name,email:email,siteurl:url;details:details}
+                }).done(function (data) {
+                   if(data['status'] == 'success'){
+                     jQuery('.status').html('<h4 style="color:green">Mail sent Successfully</h4>');
+                   }else{
+                       jQuery('.status').html('<h4 style="color:red">Something went wrong</h4>');
+                       console.log(data['error']);
+                   }
+                });
+            }
+
+        });
+    });
+
+
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+     var cancel =  document.getElementById("cancel");
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+    cancel.onclick = function() {
+       modal.style.display = "none";
+    }
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+<style>
+    body {font-family: Arial, Helvetica, sans-serif;}
+
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width:50%;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+	.headingBottom{
+	border-bottom:1px solid #d3d3d3;
+	}
+	.anyClassModal {
+  height:550px;
+  overflow-y: scroll;
+}
+.modalImg{
+width:100px;
+height:100px;
+}
+</style>

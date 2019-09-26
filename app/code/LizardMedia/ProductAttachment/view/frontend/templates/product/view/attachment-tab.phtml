@@ -1,0 +1,37 @@
+<?php /** @var $block LizardMedia\ProductAttachment\Block\Product\AttachmentTab */ ?>
+    <div id="product-attachments-container" data-role="product-attachments"></div>
+
+<?php $attachments = $block->getAttachments() ?>
+<?php if (count($attachments)) : ?>
+    <div class="table-wrapper attachments">
+        <table class="data table">
+            <thead>
+            <tr>
+                <th scope="col" class="col title"><?= __('Title') ?></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            $urlIcon = $block->getViewFileUrl('images/icons/pdf.png');
+            $attachmentUrl = $this->getUrl('pub/media')."downloadable/files/attachment/";
+            foreach ($attachments as $attachment) : ?>
+                <tr>
+                    <td data-th="<?= $block->escapeHtml(__('Title')) ?>" class="col title">
+                        <a href="<?php echo $attachmentUrl.$attachment->getAttachmentFile()?>" target="_blank"
+                           title="<?= $block->escapeHtml(__('Start download')) ?>"
+                           class="action download"
+                            <?= $block->getIsOpenInNewWindow() ? 'onclick="this.target=\'_blank\'"' : '' ?>>
+                           <img src="<?php echo $urlIcon ?>"?> &nbsp;&nbsp;  <?= $block->escapeHtml($attachment->getTitle()) ?> &nbsp;&nbsp;  <?php echo $attachment->getAttachmentFile()?>
+                        </a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+
+<?php else : ?>
+    <div class="message info empty">
+        <span><?= /* @escapeNotVerified */ __('This products does not contain any attachments.') ?></span>
+    </div>
+<?php endif; ?>

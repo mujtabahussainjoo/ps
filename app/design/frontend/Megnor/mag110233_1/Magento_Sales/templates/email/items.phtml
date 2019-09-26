@@ -1,0 +1,85 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php $_order = $block->getOrder() ?>
+<?php if ($_order): ?>
+    <?php $_items = $_order->getAllItems(); ?>
+    <table class="email-items" style="width:100%">
+        <thead>
+            <tr>
+                <th class="item-info" style="text-align: left;width:40%;border:none;background:#eaeaea;padding:2.25pt 6.75pt 2.25pt 6.75pt">
+                    <?= /* @escapeNotVerified */  __('Items') ?>
+                </th>
+                <th class="item-qty"style="text-align: left;width:30%;border:none;background:#eaeaea;padding:2.25pt 6.75pt 2.25pt 6.75pt" >
+                    <?= /* @escapeNotVerified */  __('Sku') ?>
+                </th>  
+				<th class="item-qty" style="text-align: left;width:10%;border:none;background:#eaeaea;padding:2.25pt 6.75pt 2.25pt 6.75pt">
+                    <?= /* @escapeNotVerified */  __('Qty') ?>
+                </th>
+                <th class="item-price" style="text-align: left;width:20%;border:none;background:#eaeaea;padding:2.25pt 6.75pt 2.25pt 6.75pt">
+                    <?= /* @escapeNotVerified */  __('Subtotal') ?>
+                </th>
+            </tr>
+        </thead>
+        <?php foreach ($_items as $_item): ?>
+            <?php if (!$_item->getParentItem()) : ?>
+                <tbody>
+				<tr>
+				<?php //echo "<pre>";print_r($_item->getData());?>
+				<?php 
+				//$opt=$_item->getProductOptions();
+				//echo "<pre>";print_r($opt['info_buyRequest']['qty']);?>
+					<td class="item-info" style="padding:7px 9px 9px 9px;border-left:1px solid #eaeaea;border-bottom:1px solid #eaeaea;">
+						<p class="product-name" style="min-width70px;">
+							<?php echo $_item->getName();?>
+						</p>
+						<?php //$block->getItemHtml($_item) ?>
+					</td>		
+					<td class="item-info" style="padding:7px 9px 9px 9px;border-bottom:1px solid #eaeaea;">
+						<p class="sku">
+							<?php echo $_item->getSku();?>
+						</p>
+					</td>
+					<?php
+						$qty=$_item->getQtyOrdered();
+						$price=$_item->getPrice();
+						$subTotal=$qty*$price;
+					?>
+					<td class="item-qty" style="padding:7px 9px 9px 9px;border-bottom:1px solid #eaeaea;">
+						<?= /* @escapeNotVerified   $_item->getQty() * 1*/ number_format($_item->getQtyOrdered(), '2', '.', ',')  ?>
+					</td>
+					<td class="item-price" style="padding:7px 9px 9px 0px;border-bottom:1px solid #eaeaea;text-align:right;border-right:1px solid #eaeaea">
+						<?= /* @escapeNotVerified   $block->getItemPrice($_item->getOrderItem())*/ "$".number_format($subTotal, '2', '.', ',') ?>
+					</td>
+				</tr>
+                </tbody>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <tfoot class="order-totals" style="text-align: -webkit-right;">
+            <?= $block->getChildHtml('order_totals') ?>
+        </tfoot>
+    </table>
+    <?php if ($this->helper('Magento\GiftMessage\Helper\Message')->isMessagesAllowed('order', $_order, $_order->getStore()) && $_order->getGiftMessageId()): ?>
+        <?php $_giftMessage = $this->helper('Magento\GiftMessage\Helper\Message')->getGiftMessage($_order->getGiftMessageId()); ?>
+        <?php if ($_giftMessage): ?>
+            <br />
+            <table class="message-gift">
+                <tr>
+                    <td>
+                        <h3><?= /* @escapeNotVerified */  __('Gift Message for this Order') ?></h3>
+                        <strong><?= /* @escapeNotVerified */  __('From:') ?></strong> <?= $block->escapeHtml($_giftMessage->getSender()) ?>
+                        <br /><strong><?= /* @escapeNotVerified */  __('To:') ?></strong> <?= $block->escapeHtml($_giftMessage->getRecipient()) ?>
+                        <br /><strong><?= /* @escapeNotVerified */  __('Message:') ?></strong>
+                        <br /><?= $block->escapeHtml($_giftMessage->getMessage()) ?>
+                    </td>
+                </tr>
+            </table>
+        <?php endif; ?>
+    <?php endif; ?>
+<?php endif; ?>

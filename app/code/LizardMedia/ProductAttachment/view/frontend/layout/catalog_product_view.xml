@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<!--
+/**
+ * @author Bartosz Kubicki <bartosz.kubicki@lizardmedia.pl>
+ * @copyright Copyright (C) 2018 Lizard Media (http://lizardmedia.pl)
+ */
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!--<container name="popup.content" htmlTag="div" htmlClass="popup-content" after="product.info.form.options">
+            <block class="LizardMedia\ProductAttachment\Block\Product\AttachmentTab" name="popup.product.info.review" template="LizardMedia_ProductAttachment::product/view/popup.phtml" />
+        </container>-->
+        <referenceBlock name="product.info.details">
+            <block class="LizardMedia\ProductAttachment\Block\Product\AttachmentTab" name="attachments.tab" template="LizardMedia_ProductAttachment::product/view/attachment-tab.phtml" group="detailed_info">
+                <arguments>
+                    <argument name="sort_order" xsi:type="string">100</argument>
+                    <argument translate="true" name="title" xsi:type="string">Attachments</argument>
+                </arguments>
+            </block>
+            <block class="LizardMedia\ProductAttachment\Block\Product\AttachmentTab" name="shipping.information.tab" as="shippinginformation" template="LizardMedia_ProductAttachment::product/view/shippinginformation.phtml" group="detailed_info" >
+                <arguments>
+                    <argument name="sort_order" xsi:type="string">110</argument>
+                    <argument translate="true" name="title" xsi:type="string">Shipping Information</argument>
+                </arguments>
+            </block>
+
+            <block class="LizardMedia\ProductAttachment\Block\Product\AttachmentTab" name="supply.tab" as="supplyinfo" template="LizardMedia_ProductAttachment::product/view/supply.phtml" group="detailed_info" >
+                <arguments>
+                    <argument name="sort_order" xsi:type="string">120</argument>
+                    <argument translate="true" name="title" xsi:type="string">Supply</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,133 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+?>
+<div class="container">
+	<div id="requestquote" class="row">
+		<div class="col-md-9 col-sm-9 col-xs-12" style="float:left;margin-right:10px;width:60%">
+			<div class="newlocation" style="width:80%">
+				<div class="contactinquiry-title">
+					<h2><strong>Request</strong><span> A Quote</span></h2>
+				</div>
+				<form class="form contactss"
+					  action="<?php echo $block->getUrl('downloadable/requestquote/enquiry')?>"
+					  id="inquiryForm"
+					  method="post"
+					  data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>"
+					  data-mage-init='{"validation":{}}'>
+					<fieldset class="fieldset">
+
+						<div class="field firstname required col-md-6 col-sm-6 col-xs-12">
+							<label class="label" for="firstname"><span><?php /* @escapeNotVerified */ echo __('First Name') ?></span></label>
+							<div class="control">
+								<input name="firstname" id="firstname" title="<?php /* @escapeNotVerified */ echo __('First Name') ?>" value="" class="input-text" type="text" data-validate="{required:true}"/>
+							</div>
+						</div>
+
+
+						<div class="field lastname required col-md-6 col-sm-6 col-xs-12">
+							<label class="label" for="lastname"><span><?php /* @escapeNotVerified */ echo __('Last Name') ?></span></label>
+							<div class="control">
+								<input name="lastname" id="lastname" title="<?php /* @escapeNotVerified */ echo __('Last Name') ?>" value="" class="input-text" type="text" data-validate="{required:true}"/>
+							</div>
+						</div>
+
+						<div class="field telephone required col-md-6 col-sm-6 col-xs-12">
+							<label class="label" for="telephone"><span><?php /* @escapeNotVerified */ echo __('Phone Number') ?></span></label>
+							<div class="control">
+								<input name="telephone" id="telephone" title="<?php /* @escapeNotVerified */ echo __('Phone Number') ?>" value="" class="input-text" type="text" data-validate="{required:true}"/>
+							</div>
+						</div>
+
+						<div class="field email required col-md-6 col-sm-6 col-xs-12">
+							<label class="label" for="email"><span><?php /* @escapeNotVerified */ echo __('Email') ?></span></label>
+							<div class="control">
+								<input name="email" id="email" title="<?php /* @escapeNotVerified */ echo __('Email') ?>" value="" class="input-text" type="email" data-validate="{required:true, 'validate-email':true}"/>
+							</div>
+						</div>
+
+						<div class="field company required col-md-6 col-sm-6 col-xs-12">
+							<label class="label" for="company"><span><?php /* @escapeNotVerified */ echo __('Company') ?></span></label>
+							<div class="control">
+								<input name="company" id="company" title="<?php /* @escapeNotVerified */ echo __('Company') ?>" value="" class="input-text" type="text" data-validate="{required:true}"/>
+							</div>
+						</div>
+
+						<div class="field  industry required col-md-6 col-sm-6 col-xs-12">
+							<label class="label" for="industry"><span><?php /* @escapeNotVerified */ echo __('Industry') ?></span></label>
+							<div class="control">
+								<select name="industry" id="industry" title="<?php echo __('industry') ?>" class="input-text" data-validate="{required:true}">
+									<option value="Not Selected">Please Select Industry</option>
+									<option value="Restaurant">Restaurant</option>
+									<option value="Hospitality">Hospitality</option>
+									<option value="Healthcare">Healthcare</option>
+									<option value="Retail">Retail</option>
+									<option value="Warehouse / Distribution">Warehouse / Distribution</option>
+									<option value="Entertainment">Entertainment</option>
+									<option value="Others (Field Service, Government, Transportation, etc)">Others (Field Service, Government, Transportation, etc)</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="field requirement col-md-6 col-sm-6 col-xs-12">
+							<label class="label" for="requirement"><span><?php /* @escapeNotVerified */ echo __('Requirement') ?></span></label>
+							<div class="control">
+								<div class="col-md-6 col-sm-6 col-xs-12" style="padding:0px;">
+									<input type="checkbox" name="requirement[]" id="requirement1" value="Barcode Scanners"><label for="requirement1">Barcode Scanners</label><br>
+									<input type="checkbox" name="requirement[]" id="requirement2" value="POS Barcode Label Printer"><label for="requirement2">POS Barcode Label Printer</label><br>
+									<input type="checkbox" name="requirement[]" id="requirement3" value="Terminals"><label for="requirement3">Terminals</label><br>
+									<input type="checkbox" name="requirement[]" id="requirement4" value="Weighing Scales"><label for="requirement4">Weighing Scales</label><br>
+									<input type="checkbox" name="requirement[]" id="requirement5" value="Consumables"><label for="requirement5">Consumables</label><br>
+								</div>
+								<div class="col-md-6 col-sm-6 col-xs-12" style="padding:0px;">
+									<input type="checkbox" name="requirement[]" id="requirement6" value="POS Receipt Printer"><label for="requirement6">POS Receipt Printer</label><br>
+									<input type="checkbox" name="requirement[]" id="requirement7" value="Cash Drawers"><label for="requirement7">Cash Drawers</label><br>
+									<input type="checkbox" name="requirement[]" id="requirement8" value="POS Systems"><label for="requirement8">POS Systems</label><br>
+									<input type="checkbox" name="requirement[]" id="requirement9" value="Other Accessory"><label for="requirement9">Other Accessory</label><br>
+								</div>
+							</div>
+						</div>
+
+						<div class="field  description required col-md-6 col-sm-6 col-xs-12">
+							<label class="label" for="description"><span><?php /* @escapeNotVerified */ echo __('Description') ?></span></label>
+							<div class="control">
+								<textarea name="description" id="description" title="<?php /* @escapeNotVerified */ echo __('Description') ?>" value="" class="input-text"  data-validate="{required:true}"></textarea>
+							</div>
+						</div>
+
+					</fieldset>
+					<div class="actions-toolbar">
+						<div class="primary">
+							<input type="hidden" name="hideit" id="hideit" value="" />
+							<button type="submit" title="<?php /* @escapeNotVerified */ echo __('Submit') ?>" class="action submit primary">
+								<span><?php /* @escapeNotVerified */ echo __('Submit') ?></span>
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div class="col-md-3 col-sm-3 col-xs-12" style="float:right;width:30%;margin-top: 22px;">
+			<div class="rightcompany">
+			<div class="contactinquiry-title">
+				<h3>Company</h3>
+				<ul class="right_company">
+					<li><a title="About Us" href="<?php echo $block->getBaseUrl() ?>about-us/"> About Us </a></li>
+					<li><a title="Customer Service" href="<?php echo $block->getBaseUrl() ?>customer-service/"> Customer Service </a></li>
+					<li><a title="Testimonials" href="<?php echo $block->getBaseUrl() ?>testimonials/"> Testimonials </a></li>
+					<li><a title="Privacy Policy" href="<?php echo $block->getBaseUrl() ?>termsanduse/"> Privacy Policy </a></li>
+					<li><a title="Site Map" href="<?php echo $block->getBaseUrl() ?>allcategorylist/">Site Map </a></li>
+					<li><a title="Search Terms" href="<?php echo $block->getBaseUrl() ?>search/term/popular/">Search Terms </a></li>
+					<li><a title="Advanced Search" href="<?php echo $block->getBaseUrl() ?>catalogsearch/advanced/">Advanced Search </a></li>
+					<li><a title="Advanced Search" href="<?php echo $block->getBaseUrl() ?>contact/index/index/">Contact Us </a></li>
+					<li class="active"><a title="Request a Quote" href="<?php echo $block->getBaseUrl() ?>request-quote">Request a Quote</a></li>
+				</ul>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,536 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<div class="row">
+<?php /* @var $block \Magento\Catalog\Block\Product\View\AbstractView */?>
+<?php $_product = $block->getProduct() ?>
+<?php   
+//interface_options
+  $interfaceValue = $_product->getResource()->getAttribute('interface_options')->getFrontend()->getValue($_product);
+  $interfaceValue_withArr=array();
+  $interfaceValue_withArr=explode(',',$interfaceValue);
+  if($interfaceValue){
+    ?>
+	<div class="prouctAttrData"> 
+
+        <label class="label field" for="select_27690"><span>Interface Option/s :</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
+
+	<?php
+     if(in_array(strtolower('USB'),array_map('trim',array_map('strtolower', $interfaceValue_withArr)))){ 
+  	 	$url = $block->getViewFileUrl('images/icons/USB1.png');  ?>
+  	 	<img src="<?php echo $url ?>"?> <?php echo 'USB' ?>  &nbsp;
+  	 <?php 
+  	 }
+	 if(in_array(strtolower('Bluetooth'),array_map('trim',array_map('strtolower', $interfaceValue_withArr)))){ 
+  	 	$url = $block->getViewFileUrl('images/icons/Bluetooth.png');  ?>
+  	 	<img src="<?php echo $url ?>"?> <?php echo 'Bluetooth'; ?>  &nbsp;
+  	 <?php 
+  	 }
+	 if(in_array(strtolower('RS-232'),array_map('trim',array_map('strtolower', $interfaceValue_withArr)))){ 
+  	 	$url = $block->getViewFileUrl('images/icons/RS-232.png');  ?>
+  	 	<img src="<?php echo $url ?>"?> <?php echo 'RS-232' ?>  &nbsp;
+  	 <?php 
+  	 }
+	 if(in_array(strtolower('Serial'),array_map('trim',array_map('strtolower', $interfaceValue_withArr)))){ 
+  	 	$url = $block->getViewFileUrl('images/icons/Serial.png');  ?>
+  	 	<img src="<?php echo $url ?>"?> <?php echo 'Serial' ?>  &nbsp;
+  	 <?php 
+  	 }
+	 if(in_array(strtolower('WiFi'),array_map('trim',array_map('strtolower', $interfaceValue_withArr)))){ 
+  	 	$url = $block->getViewFileUrl('images/icons/WiFi.png');  ?>
+  	 	<img src="<?php echo $url ?>"?> <?php echo 'WiFi' ?>  &nbsp;
+  	 <?php 
+  	 }
+	 if(in_array(strtolower('Parallel'),array_map('trim',array_map('strtolower', $interfaceValue_withArr)))){ 
+  	 	$url = $block->getViewFileUrl('images/icons/Parallel.png');  ?>
+  	 	<img src="<?php echo $url ?>"?> <?php echo 'Parallel' ?>  &nbsp;
+  	 <?php 
+  	 }
+	 if(in_array(strtolower('RS-232 Serial'),array_map('trim',array_map('strtolower', $interfaceValue_withArr)))){ 
+  	 	$url = $block->getViewFileUrl('images/icons/RS-232.png');  ?>
+  	 	<img src="<?php echo $url ?>"?> <?php echo 'RS-232 Serial' ?> &nbsp; 
+  	 <?php 
+  	 }
+	 
+	 if(in_array(strtolower('HDMI'),array_map('trim',array_map('strtolower', $interfaceValue_withArr)))){ 
+  	 	$url = $block->getViewFileUrl('images/icons/HDMI.png');  ?>
+  	 	<img src="<?php echo $url ?>"?> <?php echo 'HDMI' ?>  &nbsp;
+  	 <?php 
+  	 }
+	 
+	 if(in_array(strtolower('Ethernet'),array_map('trim',array_map('strtolower', $interfaceValue_withArr)))){ 
+  	 	$url = $block->getViewFileUrl('images/icons/Ethernet.png');  ?>
+  	 	<img src="<?php echo $url ?>"?> <?php echo 'Ethernet' ?> &nbsp; 
+  	 <?php 
+  	 }
+	echo"</div>"; 
+	 
+  }
+?>
+
+<?php   
+  //interface_options
+  $compatible_with = $_product->getResource()->getAttribute('compatible_with')->getFrontend()->getValue($_product);
+  $compatible_withArr=array();
+  $compatible_withArr=explode(',',$compatible_with);
+  if($compatible_with){
+    ?>
+	<div class="prouctAttrData"> 
+       <label class="label field" for="select_276970"><span>
+	Compatible with &nbsp;&nbsp;&nbsp;:
+      </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+    <?php	
+          if(in_array(strtolower('Android'),array_map('trim',array_map('strtolower', $compatible_withArr)))){
+         $url = $block->getViewFileUrl('images/icons/Android.png');  ?>
+           <img src="<?php echo $url ?>"?> <?php echo 'Android' ?>  &nbsp;
+     <?php 
+     }
+	 if(in_array(strtolower('iPads'),array_map('trim',array_map('strtolower', $compatible_withArr)))){
+        $url = $block->getViewFileUrl('images/icons/iPads.png');  ?>
+        <img src="<?php echo $url ?>"?> <?php echo 'iPads'; ?> &nbsp;
+
+    <?php
+	}
+	if(in_array(strtolower('iPhones'),array_map('trim',array_map('strtolower', $compatible_withArr)))){
+        $url = $block->getViewFileUrl('images/icons/iPhones.png');  ?>
+         <img src="<?php echo $url ?>"?> <?php echo 'iPhones'; ?> &nbsp;
+
+    <?php
+     }
+	if(in_array(strtolower('Windows'),array_map('trim',array_map('strtolower', $compatible_withArr)))){
+        $url = $block->getViewFileUrl('images/icons/windows_logo.png');  ?>
+         <img src="<?php echo $url ?>"?> <?php echo 'Windows'; ?> &nbsp;
+
+    <?php
+     }
+	if(in_array(strtolower('iPods'),array_map('trim',array_map('strtolower', $compatible_withArr)))){
+        $url = $block->getViewFileUrl('images/icons/iPods.png');  ?>
+         <img src="<?php echo $url ?>"?> <?php echo 'iPods'; ?> &nbsp;
+
+    <?php
+     }
+	 echo"</div>";
+  }
+?>
+<?php   
+   //industry_use
+  $industry_value = $_product->getResource()->getAttribute('industry_use')->getFrontend()->getValue($_product);
+  $industry_value_withArr=array();
+  $industry_value_withArr=explode(',',$industry_value);
+  if($industry_value){
+    ?>
+	<div class="prouctAttrData">
+     <label class="label field" for="select_276905"><span>
+     Solutions for &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+	<?php
+     if(in_array(strtolower('Healthcare'),array_map('trim',array_map('strtolower', $industry_value_withArr)))){ 
+  	 	$url = $block->getViewFileUrl('images/icons/Healthcare.png');  ?>
+  	 	<img src="<?php echo $url ?>"?> <?php echo 'Healthcare' ?>  &nbsp;
+  	 <?php 
+  	 }
+	 if(in_array(strtolower('Transportation'),array_map('trim',array_map('strtolower', $industry_value_withArr)))){ 
+  	 	$url = $block->getViewFileUrl('images/icons/Transportation.png');  ?>
+  	 	<img src="<?php echo $url ?>"?> <?php echo 'Transportation'; ?>  &nbsp;
+  	 <?php 
+  	 }
+	 if(in_array(strtolower('Retail'),array_map('trim',array_map('strtolower', $industry_value_withArr)))){ 
+  	 	$url = $block->getViewFileUrl('images/icons/Retail.png');  ?>
+  	 	<img src="<?php echo $url ?>"?> <?php echo 'Retail' ?>  &nbsp;
+  	 <?php 
+  	 }
+	 if(in_array(strtolower('Hospitality'),array_map('trim',array_map('strtolower', $industry_value_withArr)))){ 
+  	 	$url = $block->getViewFileUrl('images/icons/Hospitality.png');  ?>
+  	 	<img src="<?php echo $url ?>"?>  <?php echo 'Hospitality' ?> &nbsp; 
+  	 <?php 
+  	 }
+	 if(in_array(strtolower('Warehouse'),array_map('trim',array_map('strtolower', $industry_value_withArr)))){ 
+  	 	$url = $block->getViewFileUrl('images/icons/Warehouse.png');  ?>
+  	 	<img src="<?php echo $url ?>"?> <?php echo 'Warehouse' ?>  &nbsp;
+  	 <?php 
+  	 }
+	 if(in_array(strtolower('Manufacturing'),array_map('trim',array_map('strtolower', $industry_value_withArr)))){ 
+  	 	$url = $block->getViewFileUrl('images/icons/Manufacturing.png');  ?>
+  	 	<img src="<?php echo $url ?>"?> <?php echo 'Manufacturing' ?>  &nbsp; 
+  	 <?php 
+  	 }
+	 if(in_array(strtolower('Government'),array_map('trim',array_map('strtolower', $industry_value_withArr)))){ 
+  	 	$url = $block->getViewFileUrl('images/icons/Government.png');  ?>
+  	 	<img src="<?php echo $url ?>"?> <?php echo 'Government' ?>  &nbsp;
+  	 <?php 
+  	 }
+	 
+	 if(in_array(strtolower('Bank'),array_map('trim',array_map('strtolower', $industry_value_withArr)))){ 
+  	 	$url = $block->getViewFileUrl('images/icons/Bank.png');  ?>
+  	 	<img src="<?php echo $url ?>"?> <?php echo 'Bank' ?>  &nbsp;
+  	 <?php 
+  	 }
+	 
+	 if(in_array(strtolower('mPOS'),array_map('trim',array_map('strtolower', $industry_value_withArr)))){ 
+  	 	$url = $block->getViewFileUrl('images/icons/mPOS.png');  ?>
+  	 	<img src="<?php echo $url ?>"?> <?php echo 'mPOS' ?> &nbsp;  
+  	 <?php 
+  	 }
+	 if(in_array(strtolower('Ticketing'),array_map('trim',array_map('strtolower', $industry_value_withArr)))){ 
+  	 	$url = $block->getViewFileUrl('images/icons/Ticketing.png');  ?>
+  	 	<img src="<?php echo $url ?>"?> <?php echo 'Ticketing' ?>  &nbsp;
+  	 <?php 
+  	 }
+	echo"</div>"; 
+	 
+  }
+?>
+
+
+
+</div>
+<div class="clearfix"></div>
+<?php $hidePrice = $_product->getResource()->getAttribute('hide_price')->getFrontend()->getValue($_product);
+if($hidePrice == 'No'): ?>
+<div>
+    <br/>
+
+    <button id="myBtn" class='prouctAttrData prouctAttrData22'>Price Match</button><br/>
+</div>
+
+<?php if ($block->displayProductStockStatus()): ?>
+    <?php if ($_product->isAvailable()): ?>
+        <div class="stock available" title="<?= /* @escapeNotVerified */ __('Availability') ?>">
+            <span><?= /* @escapeNotVerified */ __('In stock') ?></span>
+        </div>
+    <?php else: ?>
+        <div class="stock unavailable" title="<?= /* @escapeNotVerified */ __('Availability') ?>">
+            <span><?= /* @escapeNotVerified */ __('Out of stock') ?></span>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
+<?php endif; ?>
+<?php
+$product = $block->getProduct();
+$productUrl = $_product->getImageUrl();
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+$baseUrl = $storeManager->getStore()->getBaseUrl();
+$productImageUrl = $storeManager->getStore()->getBaseUrl()."pub/media/catalog/product".$productUrl;
+$priceWithoutTax ="$".$product->getPriceInfo()->getPrice('final_price')->getAmount()->getBaseAmount();
+$priceWithTax = $product->getPriceInfo()->getPrice('final_price')->getAmount();
+$priceWithTax=explode("$",$priceWithTax);
+$priceWithTax="$".number_format($priceWithTax[0], '2');
+$ProductImageUrl = $block->getUrl('pub/media/catalog').'product'.$_product->getImage();
+?>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content anyClassModal">
+        <span class="close">&times;</span>
+        <h3 class="headingBottom">Price Match</h3>
+        <div>
+            <div class="price-popContent ">
+                <div class="price-popProduct row">
+                    <div class="sub-popProduct col-md-3">
+                        <img class="modalImg" src="<?php echo $ProductImageUrl ;?>" >
+                        <p class="price"></p>
+                        <div class="price-box" style="font-size:14px;">
+                     <span class="price-excluding-tax">
+                     <span class="label">Excl. Tax:</span>
+                     <span class="price" id="price-excluding-tax-230"><?php echo $priceWithoutTax?></span>
+                     </span>
+                            <span class="price-including-tax">
+                     <span class="label">Incl. Tax:</span>
+                     <span class="price" id="price-including-tax-230"><?php echo $priceWithTax?></span> 
+                     </span>
+                        </div>
+                        <p></p>
+                    </div>
+                    <dl class="price-popTxtInfo col-md-9">
+                        <dt>Is this product being sold elsewhere for a lower price?</dt>
+                        <dd>Please fill in the short form below and we will try to work with our suppliers to
+                            match their price or provide an even better deal.
+                        </dd>
+                        <dt>Price match requests are handled by professional sourcing staffs. </dt>
+                        <dd>If the reported product is identical to the OnlyPOS product, and lower priced sources
+                            are found, prices on product pages will be updated within 48 hours (Mon-Fri) after
+                            price match is received. <a href="<?php echo $storeManager->getStore()->getBaseUrl()."price-match"?>" style="color: #c00;"><span>Terms &amp; Conditions</span></a>
+                        </dd>
+                    </dl>
+                </div>
+                <div id="priceMatchForm">
+                    <div class="price-popMainForm">
+
+                        <fieldset class="fieldset create info">
+                            <input type="hidden" name="success_url" value="">
+                            <input type="hidden" name="error_url" value="">
+                            <div class="field field-name-firstname required">
+                                <label class="label" for="firstname"><span>SKU</span></label>
+                                <div class="control">
+                                    <strong><?php echo $_product->getSku()?></strong>
+                                </div>
+                            </div>
+
+                            <input id="productname" name="productname" value="<?php echo $_product->getName()?>" type="hidden">
+                            <input id="productsku" name="productsku" value="<?php echo $_product->getSku()?>" type="hidden">
+                            <input id="producturl" name="producturl" value="<?php echo $baseUrl.$_product->getUrlKey();?>" type="hidden">
+
+                            <div class="field field-name-lastname required">
+                                <label class="label" for="lastname"><span>Your Name:</span></label>
+                                <div class="control">
+                                    <input type="text" id="name" name="name" value="" title="your Name" class="input-text required-entry" data-validate="{required:true}" autocomplete="off" aria-required="true">
+                                </div>
+                                <p class="product-form-name" style="display: none;color: red">Please enter your name </p>
+                            </div>
+                            <div class="field field-name-lastname required">
+                                <label class="label" for="lastname"><span>Your E-mail Address:</span></label>
+                                <div class="control">
+                                    <input type="email" id="email" name="email" value="" title="your email" class="input-text required-entry" data-validate="{required:true}" autocomplete="off" aria-required="true">
+                                    <span>Unless you are already on our newsletters list, we will not send any e-mail to you that are not related to this review.</span>
+                                </div>
+                                <p class="product-form-email" style="display: none;color: red">Please enter your Email </p>
+                            </div>
+                            <div class="field field-name-lastname required">
+                                <label class="label" for="lastname"><span>URL where sold for less:</span></label>
+                                <div class="control">
+                                    <input type="text" id="url" name="url" value="" title="URL where sold for less" class="input-text required-entry" data-validate="{required:true}" autocomplete="off" aria-required="true">
+                                </div>
+                                <p class="product-form-url" style="display: none;color: red">Please provide the details </p>
+                            </div>
+                            <div class="field field-name-lastname required">
+                                <label class="label" for="lastname"><span>Notes / Details:</span></label>
+                                <div class="control">
+                                    <textarea class="input-text" id="details" maxlength="250" name="details" required=""></textarea>
+                                    <span>(price, bundle, special offer, gifts, etc)</span>
+                                </div>
+                                <p class="product-form-details" style="display: none;color: red">Please provide the details</p>
+                            </div>
+                            <?php
+                            echo $block->getLayout()->createBlock(
+                              "MSP\ReCaptcha\Block\Frontend\ReCaptcha",
+                              "msp-recaptcha",
+                              [
+                                'data' => [
+                                  'jsLayout' => [
+                                      'components' => [
+                                        'msp-recaptcha' => [
+                                          'component' => 'MSP_ReCaptcha/js/reCaptcha',
+                                          'zone' => 'contact'
+                                        ]
+                                      ]
+                                  ]
+                                  
+                                ]
+                              ]
+                            )
+                            ->setData('ifconfig', 'msp_securitysuite_recaptcha/frontend/enabled')
+                            ->setData('cacheable', 'false')
+                            ->setData('area', 'frontend')
+                            ->setTemplate('msp_recaptcha.phtml')
+                            ->toHtml();
+                            ?>
+                            <div class="actions-toolbar">
+							                  <span class="status1"></span>
+                                <div class="primary">
+                                    <button id="price_submit" class="action submit primary product-form-submit" type="button">Submit</button>
+                                </div>
+                                <div class="secondary">
+                                    <button class="button cancel " id="cancel" type="button">Cancel</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $hidePrice = $_product->getResource()->getAttribute('hide_price')->getFrontend()->getValue($_product);
+if($hidePrice == 'No'): ?>
+<div style="border:1px dashed #f52d28; padding:5px 10px; max-width:370px; color:#f52d28;font-weight: bold;">For Special &amp; Volume Pricing - Call 1300 183 340</div>
+<?php endif;  ?>
+<script>
+    require(['jquery', 'jquery/ui'], function($){
+        var baseurl = '<?php echo $storeManager->getStore()->getBaseUrl()?>';
+        var reqesturl  = baseurl + 'downloadable/requestquote/ajax';
+        jQuery('.product-form-submit').click(function ($) {
+			jQuery('.status1').html('<h3 style="color:green;margin-top:0px">Sending...</h3>');
+            var status = 1;
+
+            var name = jQuery('#name').val();
+            if(name == ''){
+                status = 0;
+                jQuery('.product-form-name').css('display','block')
+            }
+
+            var email = jQuery('#email').val();
+            if(email == ''){
+                status = 0;
+                jQuery('.product-form-email').css('display','block')
+            }
+
+            var websiteurl = jQuery('#url').val();
+            if(websiteurl == ''){
+                status = 0;
+                jQuery('.product-form-url').css('display','block')
+            }
+
+            var details = jQuery('#details').val();
+            if(details == ''){
+                status = 0;
+                jQuery('.product-form-details').css('display','block')
+            }
+
+            var productname = jQuery('#productname').val();
+            if(productname == ''){
+                status = 0;
+            }
+
+            var productsku = jQuery('#productsku').val();
+            if(productsku == ''){
+                status = 0;
+            }
+
+            var producturl = jQuery('#producturl').val();
+            if(producturl == ''){
+                status = 0;
+            }
+
+            if(status == 1){
+                // jQuery.ajax({
+                    // url: reqesturl,
+                    // type: "POST",
+                    // data :{name:name,email:email,siteurl:websiteurl,details:details,productname:productname,productsku:productsku,producturl:producturl},
+                    // dataType: "json"
+				// }).done(function (data) {
+                    // //if(data['status'] == 'success'){
+                        // jQuery('.status').html('<h4 style="color:green">Mail sent Successfully</h4>');
+                    // // }else{
+                        // // jQuery('.status').html('<h4 style="color:red">'+ data['message'] +'</h4>');
+                        // // console.log(data['error']);
+                    // // }
+                // });
+				
+				jQuery.ajax({
+					url : reqesturl,
+					type : 'POST',
+					data : {name:name,email:email,siteurl:websiteurl,details:details,productname:productname,productsku:productsku,producturl:producturl},
+					dataType:'json',
+					success : function(data) {  
+						jQuery('.status1').html('<h3 style="color:green;margin-top:0px">Mail sent Successfully</h3>');
+						/*jQuery('.input-text').val('');*/
+						setTimeout(function(){
+							jQuery('#myModal').hide();
+						}, 2400);
+						console.log('Data: '+data);
+					},
+					error : function(request,error){
+						jQuery('.status1').html('<h3 style="color:red;margin-top:0px">'+ error +'</h3>');
+						console.log("Request: "+JSON.stringify(request));
+					}
+				});
+							
+            }
+
+        });
+    });
+
+
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    var cancel =  document.getElementById("cancel");
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        console.log();
+        modal.style.display = "block";
+    }
+    cancel.onclick = function() {
+        modal.style.display = "none";
+    }
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+<style>
+    body {font-family: Arial, Helvetica, sans-serif;}
+
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 100; /* Sit on top */
+        padding-top: 50px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width:50%;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .headingBottom{
+        border-bottom:1px solid #d3d3d3;
+    }
+    .anyClassModal {
+        height:550px;
+        overflow-y: scroll;
+    }
+    .modalImg{
+        width:100px;
+        height:100px;
+    }
+.sub-popProduct span{
+ color:#000!important;
+
+}
+.prouctAttrData{
+margin-bottom:5px;
+}
+.prouctAttrData22{
+margin-bottom:5px;
+float:right;
+}
+
+</style>

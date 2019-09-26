@@ -1,0 +1,224 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Amp
+ * @copyright   Copyright (c) 2016 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+/** @var \Plumrocket\Amp\Helper\Homepage $homepageHelper */
+$homepageHelper = $this->helper(\Plumrocket\Amp\Helper\Homepage::class);
+$categories = $homepageHelper->getTopLevelCategories();
+$mediaUrl = $homepageHelper->getMediaUrl() . 'catalog/category/';
+$defaultImage = $this->getViewFileUrl('Plumrocket_Amp::images/photos/homepage-default.png');
+$imageWidth = 210;
+$imageHeight = 140;
+?>
+
+<!--amp-carousel id="custom-button" width="400" height="300" layout="responsive" type="slides" autoplay delay="2000">
+  <amp-img src="https://www.onlypos.com.au/media/AMP/08-Zebra-Barcode-scanner.jpg" width="400" height="300" layout="responsive" alt="a sample image"></amp-img>
+  <amp-img src="https://www.onlypos.com.au/media/AMP/06-SmartSled.jpg" width="400" height="300" layout="responsive" alt="another sample image"></amp-img>
+  <amp-img src="https://www.onlypos.com.au/media/AMP/11-Star-Bluetooth-Printer.jpg" width="400" height="300" layout="responsive" alt="and another sample image"></amp-img>
+</amp-carousel-->
+<?php 
+$_objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$productCollectionFactory = $_objectManager->get('\Magento\Catalog\Model\ResourceModel\Product\CollectionFactory');
+$imageHelper  = $_objectManager->get('\Magento\Catalog\Helper\Image');
+$priceHelper = $_objectManager->create('Magento\Framework\Pricing\Helper\Data');
+$collection = $productCollectionFactory->create();
+$collection->addAttributeToSelect('*');
+$collection->addAttributeToSort('entity_id','desc');
+$collection->setOrder('updated_at', 'desc');
+$collection->setPageSize(10); // selecting only 10 products
+$imageheight=165;
+$imagewidth=165;
+?>
+<?php 
+$banner_collection = $_objectManager->create('FME\Banners\Model\ResourceModel\Banners\CollectionFactory')->create(); 
+$banner_collection->addFieldToSelect('*');
+$banner_collection->addFieldToFilter('status', 1);
+$media_dir=$_objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+?>
+<?php 
+$testimonial_collection = $_objectManager->create('Credevlabz\Testimonials\Model\ResourceModel\Testimonial\CollectionFactory')->create(); 
+$testimonial_collection->addFieldToSelect('*');
+$testimonial_collection->addFieldToFilter('is_active', 1);
+?>
+<?php 
+$productCollectionFactory = $_objectManager->get('\Magento\Catalog\Model\ResourceModel\Product\CollectionFactory');
+$categoryCollectionFactory = $_objectManager->get('\Magento\Catalog\Model\CategoryFactory');
+$categoryId = 124;
+$category = $categoryCollectionFactory->create()->load($categoryId);
+$collection_special = $productCollectionFactory->create();
+$collection_special->addAttributeToSelect('*');
+$collection_special->addCategoryFilter($category);
+$collection_special->addAttributeToFilter('visibility', \Magento\Catalog\Model\Product\Visibility::VISIBILITY_BOTH);
+$collection_special->addAttributeToFilter('status',\Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED);
+?>
+
+<amp-carousel controls id="custom-button" width="400" height="200" layout="responsive" type="slides" autoplay delay="2000">
+	<?php foreach ($banner_collection as $index => $banner) { ?>
+	  <a href="<?php echo $banner->getLink()?>"><amp-img src="<?php echo $media_dir.$banner->getBannerimage()?>" width="400" height="300" layout="responsive" alt="">
+        
+      </amp-img></a>
+	<?php }?>
+</amp-carousel>
+
+
+
+<div class="offer-banner"> 
+	<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('amp-offer-banner')->toHtml();?>
+<div>
+<div class="latest-label"> 
+	<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('label-latest')->toHtml();?>
+<div>
+<div class="carousel-parent">
+	<amp-carousel controls class="carousel-component" height="auto"  layout="fixed-height" type="carousel">
+	<?php
+	 foreach ($collection as $product) { ?>
+	<div class="slide">
+		 <a href="<?php echo $product->getProductUrl()?>">
+		 <amp-img src="<?php  echo $imageHelper->init($product, 'product_base_image')->setImageFile($product->getFile())->resize($imagewidth, $imageheight)->getUrl();?>" width="<?php echo $imagewidth; ?>" height="<?php echo $imageheight; ?>" ></amp-img>
+		 </a>
+		<div class="amp-name-caption" style="text-align: center;" >
+			<?php echo substr($product->getName(),0,15)."..."?>
+		</div>	
+	<?php if(!$product->getSpecialPrice()){	?>	
+		<div class="amp-price-caption">
+			<?php echo $priceHelper->currency($product->getPrice(), true, false)?>
+		</div>
+	<?php }else{?>	
+		<div class="amp-spcl-caption">
+			<?php echo $priceHelper->currency($product->getSpecialPrice(), true, false)?>
+		</div>
+	<?php }?>	
+    </div>
+	 <?php 
+		}
+	?>
+	</amp-carousel>
+</div>
+<div class="label-special"> 
+	<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('label-special')->toHtml();?>
+<div>
+
+<div class="carousel-parent">
+	<amp-carousel controls class="carousel-component" height="auto"  layout="fixed-height" type="carousel">
+	<?php foreach ($collection_special as $product) { ?>
+		<div class="slide">
+			 <a href="<?php echo $product->getProductUrl()?>">
+			 <amp-img src="<?php  echo $imageHelper->init($product, 'product_base_image')->setImageFile($product->getFile())->resize($imagewidth, $imageheight)->getUrl();?>" width="<?php echo $imagewidth; ?>" height="<?php echo $imageheight; ?>"></amp-img>
+			 </a>
+			<div class="amp-name-caption">
+				<?php echo substr($product->getName(),0,15)."..."?>
+			</div>	
+		<?php if(!$product->getSpecialPrice()){	?>	
+			<div class="amp-price-caption">
+				<?php echo $priceHelper->currency($product->getPrice(), true, false)?>
+			</div>
+		<?php }else{?>	
+			<div class="amp-spcl-caption">
+				<?php echo $priceHelper->currency($product->getSpecialPrice(), true, false)?>
+			</div>
+		<?php }?>	
+		</div>
+	<?php }?>
+	</amp-carousel>
+</div>
+<div class="label-special"> 
+	<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('amp-top-products')->toHtml();?>
+<div>
+	<div class="carousel-parent">
+	<amp-carousel controls class="carousel-component" height="auto"  layout="fixed-height" type="carousel">
+	<?php
+$storeObj = $_objectManager->create('\Magento\Store\Model\StoreManagerInterface');
+$baseUrl = $storeObj->getStore()->getBaseUrl();
+$mediaUrl = $storeObj->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+$outputhelper    = $this->helper('Magento\Catalog\Helper\Output');
+$imageHelper  = $_objectManager->get('\Magento\Catalog\Helper\Image');
+$productCollectionFactory=$_objectManager->get('\Magento\Catalog\Model\ResourceModel\Product\CollectionFactory');
+$collection = $productCollectionFactory->create();
+$collection->addAttributeToSelect('*')
+	->addAttributeToFilter('status',\Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED)
+	->addAttributeToFilter('featured', '1')
+	->setOrder('position','DESC');
+$stockFilter = $_objectManager->get('\Magento\CatalogInventory\Helper\Stock');
+$stockFilter->addInStockFilterToCollection($collection);
+	 foreach ($collection as $productData) 
+	 { 
+	 	$this->helper('Magento\Catalog\Helper\Product')->getImageUrl($productData);
+	 	$helperImg = $this->helper('Magento\Catalog\Helper\Image')->init($productData,'category_page_list')->constrainOnly(true)->keepAspectRatio(true)->keepFrame(false)->setImageFile($productData->getImage())->getUrl(); 
+?>
+	<div class="slide">
+		 <a href="<?php echo $productData->getProductUrl(); ?>">
+		 <amp-img src="<?php  echo $helperImg ?>" width="<?php echo $imagewidth; ?>" height="<?php echo $imageheight; ?>" style="margin: 0% 0 0 0%;"></amp-img>
+		 </a>
+		<div class="amp-name-caption" style="text-align:center;" >
+			<?php if(strlen($productData->getName()) > 19): ?>
+				<?php echo substr($productData->getName(),0,18)."..."?>
+			<?php else: ?>
+				<?php echo $productData->getName() ?>
+			<?php endif; ?>
+		</div>	
+    </div>
+	 <?php 
+		}
+	?>
+	</amp-carousel>
+</div>
+<div class="label-special"> 
+	<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('amp-top-category')->toHtml();?>
+<div>
+
+
+<div class="carousel-parent">
+	<amp-carousel controls class="carousel-component" height="auto"  layout="fixed-height" type="carousel">
+	<?php
+	 foreach ($categories as $category) { ?>
+	<div class="slide">
+		 <a href="<?php echo $category->getUrl(); ?>">
+		 <amp-img src="<?php  echo $homepageHelper->getResizedImage($category, $imageWidth, $imageHeight, $defaultImage); ?>" width="<?php echo $imagewidth; ?>" height="<?php echo $imageheight; ?>" style="margin: 0% 0 0 0%;"></amp-img>
+		 </a>
+		<div class="amp-name-caption" style="text-align:center;" >
+			<?php //echo $category->getName(); ?>
+			<?php echo substr($category->getName(),0,18)."..."?>
+		</div>	
+    </div>
+	 <?php 
+		}
+	?>
+	</amp-carousel>
+</div>
+
+<div class="amp-tesmonial">
+<?php 
+$mediaUrl = $this->getUrl('pub/media');
+$mediaUrl=str_replace("?amp=1", "", $mediaUrl);
+ ?>
+<amp-carousel class="carousel2" controls layout="responsive" height="100" width="100" type="slides">
+	<?php foreach ($testimonial_collection as $testimonial) :?>
+	  <div class="slide">
+		<amp-img src="<?php echo $mediaUrl.$testimonial->getImage()?>" height="100" width="100" layout="fill"  alt="Border Collie" ></amp-img>
+		<div class="amp-testimonial-caption">
+		    <amp-fit-text layout="responsive" width="100" height="100">
+				<div class="amp-testimonial-content">
+					<div class="test_desc">
+					   <p><?php echo $testimonial->getContent();?></p>
+					   <p><b><?php echo $testimonial->getName();?></b>&nbsp; &nbsp; <?php echo $testimonial->getTitle(); ?></b></p>
+					</div>
+					
+				</div>
+			</amp-fit-text>
+		</div>
+	  </div>
+	<?php endforeach; ?>
+</amp-carousel>
+</div>

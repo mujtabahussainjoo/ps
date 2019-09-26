@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="serole_specialproduct_cron_group">
+	
+        <job name="serole_specialproduct_cronjob_specialproduct" instance="Serole\Specialproduct\Cron\Specialproduct" method="execute">
+            <schedule>30 1 * * *</schedule>
+        </job>
+		 
+    </group>
+</config>

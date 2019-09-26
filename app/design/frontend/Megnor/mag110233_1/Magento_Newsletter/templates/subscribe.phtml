@@ -1,0 +1,56 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<div class="block newsletter">
+    <div class="footer_newsletter">
+        <?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('tm_newsletter_heading')->toHtml();?>
+        <div class="news-right">
+        <ul>
+        	<li>
+            	<div class="content">
+            		<form class="form subscribe"
+                        novalidate
+                        action="<?php /* @escapeNotVerified */ echo $block->getFormActionUrl() ?>"
+                        method="post"
+                        data-mage-init='{"validation": {"errorClass": "mage-error"}}'
+                        id="newsletter-validate-detail">
+                        <div class="field newsletter">
+                            <label class="label" for="newsletter"><span><?php /* @escapeNotVerified */ echo __('Sign Up for Our Newsletter:') ?></span></label>
+                            <div class="control">
+                                <input name="email" type="email" id="newsletter"
+                                            placeholder="<?php /* @escapeNotVerified */ echo __('Enter your email address') ?>"
+                                            data-validate="{required:true, 'validate-email':true}"/>
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <button class="action subscribe primary" title="<?php /* @escapeNotVerified */ echo __('Subscribe') ?>" type="submit">
+                                <span><?php /* @escapeNotVerified */ echo __('Subscribe') ?></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+        	</li>
+    	</ul>
+        </div>
+	</div>
+</div>
+
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$requestInterface = $objectManager->get('Magento\Framework\App\RequestInterface');
+$routeName      = $requestInterface->getRouteName();
+$moduleName     = $requestInterface->getModuleName();
+$controllerName = $requestInterface->getControllerName();
+$actionName     = $requestInterface->getActionName();
+if($moduleName == 'cms' && $controllerName == "index" && $actionName == 'index') {
+    echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('company-home-page-content')->toHtml();
+}
+
+?>
+
